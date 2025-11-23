@@ -4,15 +4,12 @@ class Settings(BaseSettings):
     """Настройки приложения."""
     
     # База данных
-    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/my_project"
-
-    # Кэш
-    redis_url: str = "redis://localhost:6379/0"
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/botfarm"
 
     # Приложение
     debug: bool = False
-    app_name: str = "FastAPI Template Service"
-    project_name: str = "FastAPI Template"
+    app_name: str = "BotFarm Service"
+    project_name: str = "BotFarm"
     api_v1_prefix: str = "/api/v1"
 
     # Логирование
@@ -28,5 +25,6 @@ class Settings(BaseSettings):
 
 
 def get_settings() -> Settings:
+    """Получить настройки приложения."""
     return Settings()
 

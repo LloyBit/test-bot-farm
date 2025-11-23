@@ -6,9 +6,9 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import app.infrastructure.db.postgres.schemas
+import app.infrastructure.db.schemas
 from app.config import get_settings
-from app.infrastructure.db.postgres.migration import Base
+from app.infrastructure.db.migration import Base
 
 
 # this is the Alembic Config object, which provides

@@ -16,7 +16,7 @@ class AsyncDatabaseHelper:
         self.async_session_factory = None
         self.Base = declarative_base()
 
-    async def connect(self):
+    async def connect(self) -> None:
         """Создает подключение и инициализирует пул соединений."""
         if self.engine:
             return  # уже инициализирован

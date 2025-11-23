@@ -1,3 +1,5 @@
+"""Модели данных для слоя приложения."""
+from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
 from uuid import UUID, uuid4
@@ -6,14 +8,14 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class Env(str, Enum):
-    """Схема окружения пользователя."""
+    """Окружение пользователя."""
     prod = "prod"
     preprod = "preprod"
     stage = "stage"
 
 
 class Domain(str, Enum):
-    """Схема домена пользователя."""
+    """Домен пользователя."""
     canary = "canary"
     regular = "regular"
 
@@ -39,14 +41,15 @@ class UserRead(BaseModel):
     domain: Domain
     locktime: int
 
+@dataclass
+class LockOperationResult:
+    """Результат операции блокировки пользователя."""
+    user: UserRead
+    already_locked: bool
 
-class LockResponse(BaseModel):
-    """Схема ответа для блокировки пользователя."""
-    message: str
-    locktime: int | None = None
 
-
-class UnlockResponse(BaseModel):
-    """Схема ответа для разблокировки пользователя."""
-    message: str
-    locktime: int
+@dataclass
+class UnlockOperationResult:
+    """Результат операции разблокировки пользователя."""
+    user: UserRead
+    already_unlocked: bool

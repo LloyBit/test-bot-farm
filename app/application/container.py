@@ -2,6 +2,7 @@
 from app.infrastructure.container import InfrastructureContainer
 from app.config import Settings
 
+from app.application.services.user import UserService
 
 class ServicesContainer:
     """Контейнер для бизнес-логики сервисов."""
@@ -9,18 +10,11 @@ class ServicesContainer:
     def __init__(self, settings: Settings, infra: InfrastructureContainer):
         self._settings = settings
         self._infra = infra
-        # Здесь можно добавить ленивую инициализацию сервисов
-        # Пример:
-        # self._user_service: UserService | None = None
-    
-    # Пример использования:
-    # @property
-    # def user_service(self) -> UserService:
-    #     """Получить user service."""
-    #     if self._user_service is None:
-    #         self._user_service = UserService(
-    #             user_repo=self._infra.users_pg,
-    #             cache_repo=self._infra.cache_repo,
-    #             settings=self._settings
-    #         )
-    #     return self._user_service
+        self._user_service: UserService | None = None
+
+    @property
+    def user_service(self) -> UserService:
+        """Получить user service."""
+        if self._user_service is None:
+            self._user_service = UserService(user_repo=self._infra.user_repository)
+        return self._user_service
